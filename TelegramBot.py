@@ -1,7 +1,7 @@
 import telebot
 import requests 
 from bs4 import BeautifulSoup as b
-import random
+import random as r
 
 gptkey = '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'
 
@@ -38,7 +38,7 @@ def randomQuestion():
 
 def randomFact():
     global text
-    req = random.randint(1,4)
+    req = r.randint(1,4)
     if req == 1:        
         req = requests.get("https://www.generatormix.com/random-facts-generator?number=1")
     elif req == 2:
