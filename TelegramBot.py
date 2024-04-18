@@ -1,9 +1,8 @@
 import telebot
 import requests 
 from bs4 import BeautifulSoup as b
-import random as r
+import random
 
-gptkey = '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'
 
 def randomPickupLine():
     req = requests.get('https://www.generatormix.com/random-pick-up-lines?number=1')
@@ -18,7 +17,7 @@ def randomMotivation():
     return result
 
 def randomQuote():
-    req = requests.get('https://www.generatormix.com/random-love-quotes?number=1')
+    req = requests.get('https://www.generatormix.com/random-quote-generator?number=1')
     soup = b(req.text,'html.parser')
     result = soup.find("blockquote",class_="text-left").text
     return result
@@ -35,10 +34,23 @@ def randomQuestion():
     result = soup.find("blockquote",class_="text-left").text
     return result
 
+def randomTrivia():
+    req = requests.get('https://www.generatormix.com/random-trivia-questions-game?number=1')
+    soup = b(req.text,'html.parser')
+    result = soup.find("p",class_="marg-bottom").text
+    return result
+
+
+def randomJokes():
+    req = requests.get('https://www.generatormix.com/random-jokes?number=1')
+    soup = b(req.text,'html.parser')
+    result = soup.find("blockquote",class_="text-left").text
+    return result
+
 
 def randomFact():
     global text
-    req = r.randint(1,4)
+    req = random.randint(1,4)
     if req == 1:        
         req = requests.get("https://www.generatormix.com/random-facts-generator?number=1")
     elif req == 2:
@@ -101,6 +113,14 @@ def start(msg):
 @bot.message_handler(["pickup"])
 def start(msg):
     bot.reply_to(msg,randomPickupLine())
+
+@bot.message_handler(["trivia"])
+def start(msg):
+    bot.reply_to(msg,randomTrivia())
+
+@bot.message_handler(["joke"])
+def start(msg):
+    bot.reply_to(msg,randomJokes())
 
     
     
